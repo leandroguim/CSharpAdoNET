@@ -25,6 +25,7 @@ class Program
             case 1: 
                 Console.Title = "Listagem de Clientes";
                 Console.WriteLine("============================== LISTAGEM DE CLIENTES ==============================");
+                ListarClientes();
                 break;
             case 2:
                 Console.Title = "Novo Cliente";
@@ -123,12 +124,27 @@ class Program
         }
     }
 
+    static (int, string, string) SelecionarCliente(int id)
+    {
+        string connString = getStringConn();
+        using (SqlConnection conn = new SqlConnection(connString))
+        {
+            conn.Open();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "select * from clientes where id = @id";
+            cmd.Parameters.AddWithValue("@id", id);
 
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                reader.Read();
+                return (Convert.ToInt32(reader["id"].ToString()), reader["nome"].ToString(), reader["email"].ToString());
+            }
+        }
+    }
 
     static string getStringConn()
     {
         string connString = "Server=DESKTOP-BA373RT\\SQLEXPRESS;Database=CSharpAdoNET;User Id=sa;Password=77basslg";
         return connString;
-
     }
 }
