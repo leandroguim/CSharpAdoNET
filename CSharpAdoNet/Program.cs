@@ -2,53 +2,83 @@
 
 using System.Data.SqlClient;
 
-SalvarCliente("Denise N. Campion", "DeniseNCampion@armyspy.com");
-ListarClientes();
 
-Console.ReadKey();
-
-static void ListarClientes()
+class Program
 {
-    string connString = getStingConn();
-    using(SqlConnection conn = new SqlConnection( connString))
+    static void Main(string[] args)
     {
-        conn.Open();
-        SqlCommand cmd = conn.CreateCommand();
-        cmd.CommandText = "select * from clientes order by id";
+        SalvarCliente("Leandro Guim", "lguim@email.com", 5);
 
-        using(SqlDataReader reader = cmd.ExecuteReader())
+        ListarClientes();
+
+        Console.ReadKey();
+    }
+
+
+    static void ListarClientes()
+    {
+        string connString = getStringConn();
+        using (SqlConnection conn = new SqlConnection(connString))
         {
+            conn.Open();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "select * from clientes order by id";
 
-            while (reader.Read())
+            using (SqlDataReader reader = cmd.ExecuteReader())
             {
-                Console.WriteLine("ID: {0}", reader["id"]);
-                Console.WriteLine("Nome: {0}", reader["nome"]);
-                Console.WriteLine("------------------------------------------");
+
+                while (reader.Read())
+                {
+                    Console.WriteLine("ID: {0}", reader["id"]);
+                    Console.WriteLine("Nome: {0}", reader["nome"]);
+                    Console.WriteLine("------------------------------------------");
+                }
+
             }
 
         }
 
+
+
     }
-}
 
 
-static void SalvarCliente(string nome, string email)
-{
-    string connString = getStingConn();
-    using (SqlConnection conn = new SqlConnection(connString))
+
+    static void SalvarCliente(string nome, string email)
     {
-        conn.Open();
-        SqlCommand cmd = conn.CreateCommand();
-        cmd.CommandText = "insert into clientes (nome, email) values (@nome, @email)";
-        cmd.Parameters.AddWithValue("@nome", nome);
-        cmd.Parameters.AddWithValue("@email", email);
-        cmd.ExecuteNonQuery();
+        string connString = getStringConn();
+        using (SqlConnection conn = new SqlConnection(connString))
+        {
+            conn.Open();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "insert into clientes (nome, email) values (@nome, @email)";
+            cmd.Parameters.AddWithValue("@nome", nome);
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.ExecuteNonQuery();
+        }
     }
-}
 
-static string getStingConn()
-{
-    string connString = "Server=DESKTOP-BA373RT\\SQLEXPRESS;Database=CSharpAdoNET;User Id=sa;Password=77basslg";
-    return connString;
+    static void SalvarCliente(string nome, string email, int id)
+    {
+        string connString = getStringConn();
+        using (SqlConnection conn = new SqlConnection(connString))
+        {
+            conn.Open();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "update clientes set nome = @nome, email = @email where id  = @id";
+            cmd.Parameters.AddWithValue("@nome", nome);
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+        }
+    }
 
+
+
+    static string getStringConn()
+    {
+        string connString = "Server=DESKTOP-BA373RT\\SQLEXPRESS;Database=CSharpAdoNET;User Id=sa;Password=77basslg";
+        return connString;
+
+    }
 }
