@@ -92,6 +92,21 @@ class Program
             case 5:
                 Console.Title = "Visualização de Clientes";
                 Console.WriteLine("============================== VER DETALHES DE CLIENTES ==============================");
+
+                ListarClientes();
+
+                Console.Write("Selecione um cliente pela ID: ");
+                idOp = Convert.ToInt32(Console.ReadLine());
+                (_id, _nome, _email) = SelecionarCliente(idOp);
+                Console.Clear();
+
+                Console.Title = "Visualização de Cliente " + _nome;
+                Console.WriteLine($"============================== VER DETALHES DE CLIENTE - {_nome} ==============================");
+
+                Console.WriteLine("ID: {0}", _id);
+                Console.WriteLine("Nome: {0}", _nome);
+                Console.WriteLine("E-mail: {0}", _email);
+
                 break;
             default:
                 Console.Title = "Opção inválida";
