@@ -7,8 +7,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        SalvarCliente("Leandro Guim", "lguim@email.com", 5);
-
+        //SalvarCliente("Leandro Guim", "lguim@email.com", 5);
+        DeletarCliente(5);
         ListarClientes();
 
         Console.ReadKey();
@@ -68,6 +68,19 @@ class Program
             cmd.CommandText = "update clientes set nome = @nome, email = @email where id  = @id";
             cmd.Parameters.AddWithValue("@nome", nome);
             cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+        }
+    }
+
+    static void DeletarCliente(int id)
+    {
+        string connString = getStringConn();
+        using (SqlConnection conn = new SqlConnection(connString))
+        {
+            conn.Open();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "delete from clientes where id = @id";
             cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery();
         }
