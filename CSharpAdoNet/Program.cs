@@ -45,12 +45,13 @@ class Program
                 Console.WriteLine("============================== ALTERAÇÃO DE CLIENTE ==============================");
 
                 ListarClientes();
+                
                 Console.Write("Selecione um cliente pela ID: ");
                 int idOp = Convert.ToInt32(Console.ReadLine());
                 (int _id, string _nome, string _email) = SelecionarCliente(idOp);
                 Console.Clear();
 
-                Console.Title = "Alteração de Cliente" + _nome;
+                Console.Title = "Alteração de Cliente " + _nome;
                 Console.WriteLine($"============================== ALTERAÇÃO DE CLIENTE - {_nome} ==============================");
 
                 Console.Write("Informe um nome: ");
@@ -68,6 +69,25 @@ class Program
             case 4:
                 Console.Title = "Exclusão de Cliente";
                 Console.WriteLine("============================== EXCLUSÃO DE CLIENTE ==============================");
+                ListarClientes();
+
+                Console.Write("Selecione um cliente pela ID: ");
+                idOp = Convert.ToInt32(Console.ReadLine());
+                (_id, _nome, _email) = SelecionarCliente(idOp);
+                Console.Clear();
+
+                Console.Title = "Exclusão de Cliente " + _nome;
+                Console.WriteLine($"============================== EXCLUSÃO DE CLIENTE - {_nome} ==============================");
+                Console.WriteLine("\n\n******************** ATENÇÃO ********************\n");
+                Console.Write("Deseja continuar? ( S para SIM, N para NÃO): ");
+
+                string confirmar = Console.ReadLine().ToUpper();
+
+                if (confirmar.Equals("S"))
+                {
+                    DeletarCliente(idOp);
+                }
+
                 break;
             case 5:
                 Console.Title = "Visualização de Clientes";
