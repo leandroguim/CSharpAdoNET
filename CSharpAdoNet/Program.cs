@@ -43,6 +43,27 @@ class Program
             case 3:
                 Console.Title = "Alteração de Cliente";
                 Console.WriteLine("============================== ALTERAÇÃO DE CLIENTE ==============================");
+
+                ListarClientes();
+                Console.Write("Selecione um cliente pela ID: ");
+                int idOp = Convert.ToInt32(Console.ReadLine());
+                (int _id, string _nome, string _email) = SelecionarCliente(idOp);
+                Console.Clear();
+
+                Console.Title = "Alteração de Cliente" + _nome;
+                Console.WriteLine($"============================== ALTERAÇÃO DE CLIENTE - {_nome} ==============================");
+
+                Console.Write("Informe um nome: ");
+                nome = Console.ReadLine();
+
+                Console.Write("Informe um e-mail: ");
+                email = Console.ReadLine();
+
+                nome = nome.Equals("") ? _nome : nome;
+                email = email.Equals("") ? _email : email;
+
+                SalvarCliente(nome, email, idOp);
+
                 break;
             case 4:
                 Console.Title = "Exclusão de Cliente";
