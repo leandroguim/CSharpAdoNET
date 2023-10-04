@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Data.SqlClient;
 
 
@@ -7,9 +8,45 @@ class Program
 {
     static void Main(string[] args)
     {
-        //SalvarCliente("Leandro Guim", "lguim@email.com", 5);
-        DeletarCliente(5);
-        ListarClientes();
+
+        Console.WriteLine("============================== CONTROLE DE CLIENTES ==============================\n");
+        Console.WriteLine("Selecione uma opção:");
+        Console.WriteLine("1 - Listar");
+        Console.WriteLine("2 - Cadastrar");
+        Console.WriteLine("3 - Editar");
+        Console.WriteLine("4 - Excluir");
+        Console.WriteLine("5 - Visualizar");
+        Console.Write("Opção: ");
+        int opc = Convert.ToInt32(Console.ReadLine());
+        Console.Clear(); ;
+
+        switch (opc)
+        {
+            case 1: 
+                Console.Title = "Listagem de Clientes";
+                Console.WriteLine("============================== LISTAGEM DE CLIENTES ==============================");
+                break;
+            case 2:
+                Console.Title = "Novo Cliente";
+                Console.WriteLine("============================== CADASTRO DE NOVO CLIENTE ==============================");
+                break;
+            case 3:
+                Console.Title = "Alteração de Cliente";
+                Console.WriteLine("============================== ALTERAÇÃO DE CLIENTE ==============================");
+                break;
+            case 4:
+                Console.Title = "Exclusão de Cliente";
+                Console.WriteLine("============================== EXCLUSÃO DE CLIENTE ==============================");
+                break;
+            case 5:
+                Console.Title = "Visualização de Clientes";
+                Console.WriteLine("============================== VER DETALHES DE CLIENTES ==============================");
+                break;
+            default:
+                Console.Title = "Opção inválida";
+                Console.WriteLine("============================== SELECIONE UMA OPÇÃO VÁLIDA! ==============================");
+                break;
+        }
 
         Console.ReadKey();
     }
