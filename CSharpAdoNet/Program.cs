@@ -30,6 +30,15 @@ class Program
             case 2:
                 Console.Title = "Novo Cliente";
                 Console.WriteLine("============================== CADASTRO DE NOVO CLIENTE ==============================");
+                
+                Console.Write("Informe um nome: ");
+                string nome =  Console.ReadLine();
+
+                Console.Write("Informe um e-mail: ");
+                string email = Console.ReadLine();
+
+                SalvarCliente(nome, email);
+
                 break;
             case 3:
                 Console.Title = "Alteração de Cliente";
